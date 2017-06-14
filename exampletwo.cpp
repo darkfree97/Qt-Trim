@@ -10,13 +10,14 @@ ExampleTwo::ExampleTwo(QWidget *parent) :
     ui->graphicsView->setScene(scene);
     a = ui->horizontalSlider;
     p = ui->horizontalSlider_2;
-    srand(time(NULL));
+    rand = new Random();
     update();
     drawLimit();
 }
 
 ExampleTwo::~ExampleTwo()
 {
+    delete rand;
     delete ui;
 }
 
@@ -56,7 +57,7 @@ void ExampleTwo::on_horizontalSlider_2_valueChanged(int value)
 
 void ExampleTwo::on_pushButton_clicked()
 {
-    double point = rand()%100*0.01;
+    double point = rand->getRandomDouble();
     double _a = ui->l_a->text().toDouble();
     double _b = _a + ui->l_p->text().toDouble();
     drawLimit();
@@ -67,5 +68,28 @@ void ExampleTwo::on_pushButton_clicked()
     else {
         QMessageBox::information(this,"Повідомлення",QString("Подія не відбулася.\nТочка x=%1\nне належить проміжку [a,a+p]").arg(point));
     }
+}
 
+void ExampleTwo::on_pushButton_2_clicked()
+{
+    double point;
+    stat[0] = 0; // Event did't take place
+    stat[1] = 0; // Event take place
+    int count = ui->spinBox->value();
+    double _a = ui->l_a->text().toDouble();
+    double _b = _a + ui->l_p->text().toDouble();
+    drawLimit();
+    for (int i=0; i<count;i++){
+        point = rand->getRandomDouble();
+        scene->addLine(180*point,-1,180*point,1,QPen(Qt::red,4));
+        if(_a<=point&&_b>=point){
+            stat[1]+=1;
+        }
+        else {
+            stat[0]+=1;
+        }
+    }
+    QMessageBox::information(this,"Повідомлення",QString("Проведено { %1 } випробувань!\n").arg(count)+
+                             "Подія не відбулася = "+QString::number(stat[0])+" = "+QString::number(1.0*stat[0]/count*100)+"%\n"
+                             "Подія відбулася    = "+QString::number(stat[1])+" = "+QString::number(1.0*stat[1]/count*100)+"%\n");
 }

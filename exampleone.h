@@ -7,7 +7,7 @@
 #include <QGraphicsItem>
 #include <QMessageBox>
 
-#include <time.h>
+#include "random.h"
 
 namespace Ui {
 class ExampleOne;
@@ -24,9 +24,13 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
 private:
     Ui::ExampleOne *ui;
     QGraphicsScene *scene;
+    Random *rand;
+    int stat[4];
     void update();
 };
 

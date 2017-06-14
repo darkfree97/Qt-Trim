@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "statistik.h"
 #include "exampleone.h"
 #include "exampletwo.h"
 #include "examplethree.h"
@@ -31,8 +32,11 @@ private slots:
 
     void on_exempl_5_clicked();
 
+    void on_st_but_clicked();
+
 private:
     Ui::MainWindow *ui;
+    Statistik *st;
     ExampleOne *ex_1;
     ExampleTwo *ex_2;
     ExampleThree *ex_3;

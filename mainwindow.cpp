@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    st = new Statistik(this);
     ex_1 = new ExampleOne(this);
     ex_2 = new ExampleTwo(this);
     ex_3 = new ExampleThree(this);
@@ -17,6 +18,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ex_3->setModal(true);
     ex_4->setModal(true);
     ex_5->setModal(true);
+
+    QPushButton *stat = ui->st_but;
+    connect(stat,SIGNAL(clicked(bool)),st,SLOT(update()));
+    QPushButton *five = ui->exempl_5;
+    connect(five,SIGNAL(clicked(bool)),ex_5,SLOT(update()));
 }
 
 MainWindow::~MainWindow()
@@ -47,4 +53,9 @@ void MainWindow::on_exempl_4_clicked()
 void MainWindow::on_exempl_5_clicked()
 {
     ex_5->show();
+}
+
+void MainWindow::on_st_but_clicked()
+{
+    st->show();
 }

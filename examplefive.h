@@ -6,8 +6,9 @@
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 #include <QMessageBox>
+#include <QSpinBox>
 
-#include <time.h>
+#include "random.h"
 
 namespace Ui {
 class ExampleFive;
@@ -21,8 +22,21 @@ public:
     explicit ExampleFive(QWidget *parent = 0);
     ~ExampleFive();
 
+private slots:
+    void on_spinBox_valueChanged(int arg1);
+    void on_pushButton_clicked();
+    void update();
+
+
+    void on_pushButton_2_clicked();
+
 private:
+    QSpinBox *sp;
     Ui::ExampleFive *ui;
+    QGraphicsScene *scene;
+    Random *rand;
+    int stat[26];
+    void drawLimit(int n);
 };
 
 #endif // EXAMPLEFIVE_H

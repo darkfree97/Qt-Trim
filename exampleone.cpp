@@ -7,11 +7,9 @@ ExampleOne::ExampleOne(QWidget *parent) :
 {
     ui->setupUi(this);
     scene = new QGraphicsScene(ui->graphicsView);
-        //Это как раз создана сцена. Сцена - это класс для работы с 2D графикой.
-        //Теперь, раз это график, то построим координатные оси X и Y.
-        update();
-        ui->graphicsView->setScene(scene);
-        srand(time(NULL));
+    ui->graphicsView->setScene(scene);
+    rand = new Random();
+    update();
 }
 
 ExampleOne::~ExampleOne()
@@ -22,7 +20,7 @@ ExampleOne::~ExampleOne()
 void ExampleOne::on_pushButton_clicked()
 {
     update();
-    double rand_point = rand()%500*0.01;
+    double rand_point = rand->getRandomDouble()*5;
     scene->addLine(180*(rand_point/5.0),-1,180*(rand_point/5.0),1,QPen(Qt::red,4));
     if(rand_point>3){
         QMessageBox::information(this,"Повідомлення","Відбулася подія B\nx = "+QString::number(rand_point));
@@ -36,7 +34,6 @@ void ExampleOne::on_pushButton_clicked()
     else{
         QMessageBox::information(this,"Повідомлення","Жодна подія не відбулася\nx = "+QString::number(rand_point));
     }
-//    qDebug()<<rand_point<<endl;
 }
 
 void ExampleOne::update(){
@@ -52,4 +49,35 @@ void ExampleOne::update(){
     scene->addLine(144,-1,144,1,pen);
     scene->addLine(180,-1,180,1,pen);
     scene->addText("0\t\t  5");
+}
+
+void ExampleOne::on_pushButton_2_clicked()
+{
+    int count = ui->spinBox->value();
+    stat[0] = 0; // None
+    stat[1] = 0; // A
+    stat[2] = 0; // B
+    stat[3] = 0; // A & B
+    update();
+    for(int i=0;i<count;i++){
+        double rand_point = rand->getRandomDouble()*5;
+        scene->addLine(180*(rand_point/5.0),-1,180*(rand_point/5.0),1,QPen(Qt::red,4));
+        if(rand_point>3){
+            stat[2]+=1;
+        }
+        else if(rand_point<3&&rand_point>1){
+            stat[1]+=1;
+        }
+        else if(rand_point==3){
+            stat[3]+=1;
+        }
+        else{
+            stat[0]+=1;
+        }
+    }
+    QMessageBox::information(this,"Повідомлення",QString("Проведено { %1 } випробувань!\n").arg(count)+
+                             "0 = "+QString::number(stat[0])+" = "+QString::number(1.0*stat[0]/count*100)+"%\n"
+                             "A = "+QString::number(stat[1])+" = "+QString::number(1.0*stat[1]/count*100)+"%\n"
+                             "B = "+QString::number(stat[2])+" = "+QString::number(1.0*stat[2]/count*100)+"%\n"
+                         "A & B = "+QString::number(stat[3])+" = "+QString::number(1.0*stat[3]/count*100)+"%\n");
 }

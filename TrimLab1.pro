@@ -18,21 +18,28 @@ SOURCES += main.cpp\
     examplethree.cpp \
     examplefour.cpp \
     examplefive.cpp \
-    exampleone.cpp
+    exampleone.cpp \
+    random.cpp \
+    statistik.cpp
 
 HEADERS  += mainwindow.h \
     exampletwo.h \
     examplethree.h \
     examplefour.h \
     examplefive.h \
-    exampleone.h
+    exampleone.h \
+    random.h \
+    statistik.h
 
 FORMS    += mainwindow.ui \
     exampletwo.ui \
     examplethree.ui \
     examplefour.ui \
     examplefive.ui \
-    exampleone.ui
+    exampleone.ui \
+    statistik.ui
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES +=

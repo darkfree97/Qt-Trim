@@ -1,0 +1,6 @@
+QMainWindow{
+	/*background-color: yellow;*/
+}
+QDialog{
+        /*background-color: brown;*/
+}

@@ -7,8 +7,9 @@
 #include <QGraphicsItem>
 #include <QMessageBox>
 #include <QSlider>
+#include <QFile>
 
-#include <time.h>
+#include "random.h"
 
 namespace Ui {
 class ExampleTwo;
@@ -30,13 +31,17 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
 private:
     Ui::ExampleTwo *ui;
     QGraphicsScene *scene;
     QSlider *a;
     QSlider *p;
+    Random *rand;
     void drawLimit();
     void update();
+    int stat[2];
 };
 
 #endif // EXAMPLETWO_H
